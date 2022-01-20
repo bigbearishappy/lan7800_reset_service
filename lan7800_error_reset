@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for((;;))
+do
+dmesg_ret=`dmesg | grep "eth1: failed to kill vid"`
+
+if [ -n "$dmesg_ret" ];then
+    echo 127 | tee /sys/class/backlight/1-0045/brightness
+    modprobe -r lan7800
+    modprobe lan7800
+    sleep 1
+    echo 255 | tee /sys/class/backlight/1-0045/brightness
+fi 
+done
